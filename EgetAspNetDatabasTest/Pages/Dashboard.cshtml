@@ -1,0 +1,59 @@
+﻿@page
+@model EgetAspNetDatabasTest.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>Inloggad som: @User.Identity.Name</p>
+
+<div style="margin: auto;width: 500px">
+    <form method="post">
+        <div class="form-group">
+            <label for="postText">Skriv inlägg:</label>
+            <textarea class="form-control" id="postText" name="PostData" rows="3"></textarea> <!-- Notera ändringen här -->
+        </div>
+        <button type="submit" class="btn btn-primary" id="postButton" disabled>Posta</button>
+    </form>
+
+
+    @foreach (var post in Model.Posts)
+    {
+        <div>
+            <h3>[User ID: @post.UserId] (Post ID: @post.PostId)</h3>
+            <p>@post.PostData</p>
+            <p>Upvotes: @post.PostUpvotes, Downvotes: @post.PostDownvotes</p>
+
+            <div style="display: flex; justify-content:center;">
+                <form method="post" asp-page-handler="Upvote" style="margin-right: 10px;">
+                    <input type="hidden" name="PostId" value="@post.PostId" />
+                    <button type="submit" class="btn btn-success">Tumma upp</button>
+                </form>
+
+                <button type="submit" class="btn btn-dark" style="margin-right: 10px;">Kommentera</button>
+                
+                <form method="post" asp-page-handler="Downvote">
+                    <input type="hidden" name="PostId" value="@post.PostId" />
+                    <button type="submit" class="btn btn-danger">Tumma ner</button>
+                </form>
+            </div>
+        </div>
+    }
+    <hr />
+    <a asp-page="/Dashboard" asp-route-UserId="1">Visa inlägg för användare 1</a>
+    <a asp-page="/Dashboard" asp-route-UserId="2">Visa inlägg för användare 2</a>
+    <a asp-page="/Dashboard">Visa alla inlägg</a>
+
+</div>
+
+<script>
+    document.getElementById('postText').addEventListener('input', function () {
+        var postText = this.value.trim(); // Hämta och trimma texten från textfältet
+        var postButton = document.getElementById('postButton'); // Referens till "Posta"-knappen
+        if (postText) {
+            postButton.disabled = false; // Aktivera knappen om det finns text
+        } else {
+            postButton.disabled = true; // Inaktivera knappen om textfältet är tomt
+        }
+    });
+</script>

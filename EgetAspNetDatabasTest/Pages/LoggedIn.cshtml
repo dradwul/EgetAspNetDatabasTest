@@ -1,0 +1,12 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Authentication
+@attribute [Authorize]
+@model EgetAspNetDatabasTest.Pages.LoggedInModel
+@{
+    ViewData["Title"] = "Logged in";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>Välkommen, @User.Identity.Name!</p>
+

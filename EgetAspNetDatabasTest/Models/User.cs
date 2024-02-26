@@ -7,11 +7,10 @@ namespace EgetAspNetDatabasTest.Models
         [Key]
         public int UserId { get; set; } // Primärnyckel
 
-        [Required] // Markerar fältet som obligatoriskt
-        // [Index(IsUnique = true)] // Använd detta om du vill göra Username unikt, kräver EF Core 5.0 eller senare
+        [Required]
         public string Username { get; set; }
 
-        [Required] // Markerar fältet som obligatoriskt
+        [Required]
         public string Password { get; set; }
 
         public List<Post> Posts { get; set; }

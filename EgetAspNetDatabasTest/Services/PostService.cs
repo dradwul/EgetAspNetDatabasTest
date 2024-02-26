@@ -13,13 +13,11 @@ namespace EgetAspNetDatabasTest.Services
             _context = context;
         }
 
-        // Notera användningen av 'async' och att returtypen matchar interfacet exakt.
         public async Task<List<Post>> GetPostsAsync()
         {
             return await _context.posts.ToListAsync();
         }
 
-        //NYTT:
         public async Task AddPostAsync(Post newPost)
         {
             _context.posts.Add(newPost);
